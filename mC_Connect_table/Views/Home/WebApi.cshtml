@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "SMCS mC-Connect Manager Web API";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">POS App</a>
+                <a href="#" class="list-group-item list-group-item-action">mC-Connect Tools acquisition</a>
+                <a href="#" class="list-group-item list-group-item-action">mC-Connect™ Table list acquisition</a>
+                @*<a href="#" class="list-group-item list-group-item-action">Set image acquisition</a>
+                <a href="#" class="list-group-item list-group-item-action">Webhooks acquisition</a>
+                <a href="#" class="list-group-item list-group-item-action">Image update</a>
+                <a href="#" class="list-group-item list-group-item-action">mC-Connect™ Table name update</a>
+                <a href="#" class="list-group-item list-group-item-action">mC-Connect™ Table device name update</a>
+                <a href="#" class="list-group-item list-group-item-action">Webhook registration</a>
+                <a href="#" class="list-group-item list-group-item-action">mC-Connect Tool deletion</a>
+                <a href="#" class="list-group-item list-group-item-action">mC-Connect™ Table deletion</a>
+                <a href="#" class="list-group-item list-group-item-action">Webhook deletion</a>*@
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h2>SMCS mC-Connect Manager Web API</h2>
+            <p>HOST: <a href="#">https://mc-connect-manager.smcs.io/api/v1</a></p>
+            <p>This section defines API that manages and controls mC-Connect Tool and mC-Connect™ Table. In addition, API that checks the settings and usage state of Webhooks is also defined.</p>
+            <p>There are two types of authentication methods; one is by OAuth2.0 approval code flow using PKCE and the other is by assigning the API key to each API header. The API key is issued from the management page (<a href="#">https://mc-connect-manager.smcs.site</a>).</p>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    Acquiring a mC-Connect Tool list and the mC-Connect™ Table list connected to each mC-connect Tool
+                </div>
+                <div class="card-body">
+                    <h5>GET <code>/apps</code></h5>
+                    <p>Returns the mC-Connect Tool list and the mC-Connect™ Table list connected to each mC-connect Tool.</p>
+                    <button class="btn btn-primary" onclick="tryApiCall('/apps', 'GET', null, '#responseApps')">Try</button>
+                    <pre id="responseApps" class="mt-3 bg-light p-2 border rounded"></pre>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    Acquiring the mC-Connect™ Table list connected to the mC-Connect Tool to be controlled
+                </div>
+                <div class="card-body">
+                    <h5>GET <code>/devices</code></h5>
+                    <p>Returns the mC-Connect™ Table list connected to the mC-Connect Tool to be controlled.</p>
+                    <button class="btn btn-primary" onclick="tryApiCall('/devices', 'GET', null, '#responseDevices')">Try</button>
+                    <pre id="responseDevices" class="mt-3 bg-light p-2 border rounded"></pre>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    Acquiring the mC-Connect™-Table list connected to the target mC-Connect Tool
+                </div>
+                <div class="card-body">
+                    <h5>GET <code>/devices/{app_id}</code></h5>
+                    <p>Returns the mC-Connect™-Table list connected to the target mC-Connect Tool.</p>
+                    <div class="mb-3">
+                        <label for="appIdInput" class="form-label">Enter app_id:</label>
+                        <input type="text" id="appIdInput" class="form-control" placeholder="Enter app_id">
+                    </div>
+                    <button class="btn btn-primary" onclick="handleApiCall()">Try</button>
+                    <pre id="responseDevicesApp" class="mt-3 bg-light p-2 border rounded"></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function handleApiCall() {
+            const appId = document.getElementById('appIdInput').value.trim();
+            if (appId) {
+                const endpoint = `/devices/${appId}`;
+                tryApiCall(endpoint, 'GET', null, '#responseDevicesApp');
+            } else {
+                document.querySelector('#responseDevices').textContent = 'Error: app_id is required';
+            }
+        }
+
+        function tryApiCall(endpoint, method, body, responseElement) {
+            const url = `/proxy${endpoint}`;
+
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: method !== 'GET' ? JSON.stringify(body) : null
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.querySelector(responseElement).textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.querySelector(responseElement).textContent = 'Error: ' + error.message;
+                });
+        }
+
+
+
+    </script>
+}

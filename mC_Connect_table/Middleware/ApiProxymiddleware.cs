@@ -51,7 +51,7 @@ public class ApiProxyMiddleware
         }
         else
         {
-            _logger.LogInformation("Index action invoked.\n\n\n\n\n\n\n\n\n\n\n\n");
+         //   _logger.LogInformation("Index action invoked.\n\n\n\n\n\n\n\n\n\n\n\n");
             await _next(context);
         }
     }

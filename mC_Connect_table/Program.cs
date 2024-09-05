@@ -4,6 +4,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
+builder.Services.AddDistributedMemoryCache(); // Adds in-memory cache
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -11,6 +18,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+app.UseSession(); // Add session middleware
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

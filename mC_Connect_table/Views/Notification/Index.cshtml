@@ -1,9 +1,28 @@
-﻿@model mC_Connect_table.Controllers.WebhookRequest
+﻿@* Add the SignalR JavaScript client library *@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/microsoft.signalr.min.js"></script>
 
-<div class="container mt-5">
-    <h1>Notification</h1>
-    <div class="alert alert-info">
-        <strong>@Model.title</strong>
-        <p>@Model.id</p>
-    </div>
-</div>
+<script>
+    // Create a connection to the SignalR hub
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/notificationHub")
+        .build();
+
+    // Define a function to handle incoming notifications
+    connection.on("ReceiveNotification", (notification) => {
+        window.alert(notification);
+        // Update the content of the div with the notification data
+        const notificationDiv = document.getElementById("notification");
+        if (notificationDiv) {
+            notificationDiv.innerHTML = `
+                <h4>New Notification</h4>
+                <p><strong>Title:</strong> ${notification.title}</p>
+                <p><strong>ID:</strong> ${notification.id}</p>
+            `;
+        }
+    });
+
+    // Start the connection
+    connection.start().catch(err => console.error("SignalR connection error:", err));
+</script>
+
+<div id="notification"></div>

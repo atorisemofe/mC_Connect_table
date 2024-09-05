@@ -1,3 +1,5 @@
+using mC_Connect_table.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +13,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+builder.Services.AddSignalR(); // Add SignalR services
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -35,7 +39,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{controller=Home}/{action=WebApi}");
 
     endpoints.MapControllerRoute(
         name: "webhook",
@@ -47,5 +51,8 @@ app.UseEndpoints(endpoints =>
         pattern: "notifications/{action=Index}",
         defaults: new { controller = "Notifications" });
 });
+
+app.MapHub<NotificationHub>("/notificationHub"); // Map the SignalR hub
+
 
 app.Run();

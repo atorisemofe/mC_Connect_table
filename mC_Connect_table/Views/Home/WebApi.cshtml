@@ -291,7 +291,7 @@
             const newName = document.getElementById('DeviceNameInput').value;
 
             if (!deviceIdInput) {
-                alert('Please enter an device_id.');
+                alert('Please enter a device_id.');
                 return;
             }
 
@@ -347,15 +347,26 @@
         }
 
         function getImageEndpoint() {
-        // Get the device ID
-        const deviceId = document.getElementById('deviceIdInput').value.trim();
-        
-        // Get the include_content value and convert it to a boolean
-        let includeContentStr = document.getElementById('includeContentBoolInput').value.trim().toLowerCase();
-        let includeContent = (includeContentStr === 'true');  // Convert to boolean
-        
-        // Construct the API endpoint with the boolean parameter
-        return `/image/${encodeURIComponent(deviceId)}?is_include_content=${includeContent}`;
+            // Get the device ID
+            const deviceId = document.getElementById('deviceIdInput').value.trim();
+
+            if (!deviceId.length === 0) {
+                alert('Please enter a device_id.');
+                return;
+            }
+            
+            // Get the include_content value and convert it to a boolean
+            let includeContentStr = document.getElementById('includeContentBoolInput').value.trim().toLowerCase();
+            
+            if (!includeContentStr.length === 0) {
+                alert('Please enter "include content" value.');
+                return;
+            }
+
+            let includeContent = (includeContentStr === 'true');  // Convert to boolean
+            
+            // Construct the API endpoint with the boolean parameter
+            return `/image/${encodeURIComponent(deviceId)}?is_include_content=${includeContent}`;
         }
 
         function handleApiCall() {

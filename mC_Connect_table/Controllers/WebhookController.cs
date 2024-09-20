@@ -38,6 +38,13 @@ namespace mC_Connect_table.Controllers
     public class WebhookRequest
     {
         public string title { get; set; }
-        public int id { get; set; }
+        public string id { get; set; }
+        public string address { get; set; }
+        public string device_name { get; set; }
+        public int action { get; set; }
+        // public string job_id { get; set; }
+        // public string name { get; set; }
+        // public bool intentional { get; set; }
+        // public int battery_level { get; set; }
     }
 }

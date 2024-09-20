@@ -27,7 +27,7 @@
             if (notification.device_name) {
                 notificationDiv.innerHTML += `<p><strong>Device Name:</strong> ${notification.device_name}</p>`;
             }
-            if (notification.action !== undefined) {
+            if (notification.action !== null) {
                 notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}</p>`;
             }
             if (notification.job_id) {
@@ -37,7 +37,7 @@
                 notificationDiv.innerHTML += `<p><strong>Name:</strong> ${notification.name}</p>`;
                 notificationDiv.innerHTML += `<p><strong>Intentional Disconnection:</strong> ${notification.intentional ? 'Yes' : 'No'}</p>`;
             }
-            if (notification.battery_level !== undefined) {
+            if (notification.battery_level !== null) {
                 notificationDiv.innerHTML += `<p><strong>Battery Level:</strong> ${notification.battery_level}</p>`;
             }
         }

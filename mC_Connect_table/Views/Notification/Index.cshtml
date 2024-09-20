@@ -28,7 +28,17 @@
                 notificationDiv.innerHTML += `<p><strong>Device Name:</strong> ${notification.device_name}</p>`;
             }
             if (notification.action !== null) {
-                notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}</p>`;
+                if (notification.action == 1){
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: single push </p>`;
+                }else if (notification.action == 2) {
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: two pushes</p>`;
+                }else if (notification.action == 3){
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: three pushes</p>`;
+                }else if (notification.action == 129){
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: 1-second press and hold</p>`;
+                }else if (notification.action == 133){
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: 5-second press and hold</p>`;
+                } 
             }
             if (notification.job_id) {
                 notificationDiv.innerHTML += `<p><strong>Job ID:</strong> ${notification.job_id}</p>`;

@@ -9,18 +9,37 @@
 
     // Define a function to handle incoming notifications
     connection.on("ReceiveNotification", (notification) => {
-        window.alert(notification);
+        window.alert(notification.title); // Alert the title
         // Update the content of the div with the notification data
         const notificationDiv = document.getElementById("notification");
         if (notificationDiv) {
-            notificationDiv.innerHTML = `
-                <h4>New Notification</h4>
-                <p><strong>Title:</strong> ${notification.title}</p>
-                <p><strong>ID:</strong> ${notification.id}</p>
-                <p><strong>Address:</strong> ${notification.address}</p>
-                <p><strong>Device Name:</strong> ${notification.device_name}</p>
-                <p><strong>Action:</strong> ${notification.action}</p>
-            `;
+            // Clear previous notifications
+            notificationDiv.innerHTML = `<h4>New Notification</h4>`;
+
+            // Title
+            notificationDiv.innerHTML += `<p><strong>Title:</strong> ${notification.title}</p>`;
+            notificationDiv.innerHTML += `<p><strong>ID:</strong> ${notification.id}</p>`;
+
+            // Conditional rendering based on the notification type
+            if (notification.address) {
+                notificationDiv.innerHTML += `<p><strong>Address:</strong> ${notification.address}</p>`;
+            }
+            if (notification.device_name) {
+                notificationDiv.innerHTML += `<p><strong>Device Name:</strong> ${notification.device_name}</p>`;
+            }
+            if (notification.action !== undefined) {
+                notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}</p>`;
+            }
+            if (notification.job_id) {
+                notificationDiv.innerHTML += `<p><strong>Job ID:</strong> ${notification.job_id}</p>`;
+            }
+            if (notification.name) {
+                notificationDiv.innerHTML += `<p><strong>Name:</strong> ${notification.name}</p>`;
+                notificationDiv.innerHTML += `<p><strong>Intentional Disconnection:</strong> ${notification.intentional ? 'Yes' : 'No'}</p>`;
+            }
+            if (notification.battery_level !== undefined) {
+                notificationDiv.innerHTML += `<p><strong>Battery Level:</strong> ${notification.battery_level}</p>`;
+            }
         }
     });
 

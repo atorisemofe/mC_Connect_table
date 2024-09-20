@@ -4,6 +4,7 @@ using mC_Connect_table.Hubs;
 
 using System.Text.Json; // Add this using directive
 using System.Threading.Tasks;
+using mC_Connect_table.Models;
 
 namespace mC_Connect_table.Controllers
 {
@@ -18,7 +19,7 @@ namespace mC_Connect_table.Controllers
             _hubContext = hubContext;
         }
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] WebhookRequest request)
+        public async Task<IActionResult> Post([FromBody] NotificationViewModel request)
         {
             if (request == null)
             {
@@ -35,16 +36,16 @@ namespace mC_Connect_table.Controllers
         }
     }
 
-    public class WebhookRequest
-    {
-        public string title { get; set; }
-        public string id { get; set; }
-        public string address { get; set; }
-        public string device_name { get; set; }
-        public int action { get; set; }
-        // public string job_id { get; set; }
-        // public string name { get; set; }
-        // public bool intentional { get; set; }
-        // public int battery_level { get; set; }
-    }
+    // public class WebhookRequest
+    // {
+    //     public string title { get; set; }
+    //     public string id { get; set; }
+    //     public string address { get; set; }
+    //     public string device_name { get; set; }
+    //     public int action { get; set; }
+    //     public string job_id { get; set; }
+    //     public string name { get; set; }
+    //     public bool intentional { get; set; }
+    //     public int battery_level { get; set; }
+    // }
 }

@@ -1,3 +1,4 @@
+using mC_Connect_table.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json; // Add this using directive
 
@@ -13,8 +14,8 @@ namespace mC_Connect_table.Controllers
             
             // Deserialize the data to a model
             var model = notificationData != null 
-                ? JsonSerializer.Deserialize<WebhookRequest>(notificationData) 
-                : new WebhookRequest();
+                ? JsonSerializer.Deserialize<NotificationViewModel>(notificationData) 
+                : new NotificationViewModel();
 
             return View(model);
         }

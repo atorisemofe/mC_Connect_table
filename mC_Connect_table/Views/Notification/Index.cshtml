@@ -29,15 +29,15 @@
             }
             if (notification.action !== null) {
                 if (notification.action == 1){
-                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: single push </p>`;
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action} || single push </p>`;
                 }else if (notification.action == 2) {
-                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: two pushes</p>`;
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action} || two pushes</p>`;
                 }else if (notification.action == 3){
-                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: three pushes</p>`;
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action} || three pushes</p>`;
                 }else if (notification.action == 129){
-                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: 1-second press and hold</p>`;
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action} || 1-second press and hold</p>`;
                 }else if (notification.action == 133){
-                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action}: 5-second press and hold</p>`;
+                    notificationDiv.innerHTML += `<p><strong>Action:</strong> ${notification.action} || 5-second press and hold</p>`;
                 } 
             }
             if (notification.job_id) {

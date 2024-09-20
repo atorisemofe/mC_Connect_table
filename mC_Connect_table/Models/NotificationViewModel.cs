@@ -8,17 +8,17 @@ namespace mC_Connect_table.Models
     public string Id { get; set; }
 
     // For Push Switch and Image Updated
-    public string Address { get; set; }
-    public string DeviceName { get; set; }
+    public string? Address { get; set; }
+    public string? DeviceName { get; set; }
 
     // Push Switch-specific
     public int? Action { get; set; }
 
     // Image Updated-specific
-    public string JobId { get; set; }
+    public string? JobId { get; set; }
 
     // App Disconnection-specific
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public bool? Intentional { get; set; }
 
     // Battery Capacity-specific

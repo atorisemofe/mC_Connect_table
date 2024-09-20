@@ -86,8 +86,17 @@ namespace mC_Connect_table.Controllers
             var jsonContent = JsonSerializer.Serialize(putRequestBody);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            // Send the PUT request
-            var response = await _httpClient.PutAsync(endpoint, content);
+            // Create an HttpRequestMessage to include the custom header
+            var requestMessage = new HttpRequestMessage(HttpMethod.Put, endpoint)
+            {
+                Content = content
+            };
+
+            // Add the custom header
+            requestMessage.Headers.Add("Star-Api-Key", "00a7d7db-37e9-4737-8400-5c778d6cc05c");
+
+            // Send the PUT request with the custom header
+            var response = await _httpClient.SendAsync(requestMessage);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -95,5 +104,6 @@ namespace mC_Connect_table.Controllers
                 throw new HttpRequestException($"Error sending PUT request to {endpoint}: {response.StatusCode}");
             }
         }
+
     }
 }

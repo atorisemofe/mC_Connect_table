@@ -9,13 +9,13 @@ namespace mC_Connect_table.Models
 
     // For Push Switch and Image Updated
     public string? Address { get; set; }
-    public string? DeviceName { get; set; }
+    public string? Device_Name { get; set; }
 
     // Push Switch-specific
     public int? Action { get; set; }
 
     // Image Updated-specific
-    public string? JobId { get; set; }
+    public string? Job_Id { get; set; }
 
     // App Disconnection-specific
     public string? Name { get; set; }

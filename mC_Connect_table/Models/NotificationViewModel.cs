@@ -4,25 +4,25 @@ namespace mC_Connect_table.Models
 {
     public class NotificationViewModel
 {
-    public string Title { get; set; }
-    public string Id { get; set; }
+    public string title { get; set; }
+    public string id { get; set; }
 
     // For Push Switch and Image Updated
-    public string? Address { get; set; }
+    public string? address { get; set; }
     public string? device_name { get; set; }
 
     // Push Switch-specific
-    public int? Action { get; set; }
+    public int? action { get; set; }
 
     // Image Updated-specific
     public string? job_id { get; set; }
 
     // App Disconnection-specific
-    public string? Name { get; set; }
-    public bool? Intentional { get; set; }
+    public string? name { get; set; }
+    public bool? intentional { get; set; }
 
     // Battery Capacity-specific
-    public int? BatteryLevel { get; set; }
+    public int? battery_level { get; set; }
 }
 
 }

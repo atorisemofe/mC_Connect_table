@@ -14,6 +14,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 builder.Services.AddSignalR(); // Add SignalR services
+builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor(); 
 
 var app = builder.Build();
 

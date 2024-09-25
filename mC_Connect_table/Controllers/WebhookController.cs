@@ -48,16 +48,16 @@ namespace mC_Connect_table.Controllers
                 switch (request.action)
                 {
                     case 1:
-                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction1);
+                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction1, 1);
                         break;
                     case 2:
-                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction2);
+                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction2, 2);
                         break;
                     case 3:
-                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction3);
+                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction3, 3);
                         break;
                     case 129:
-                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction129);
+                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction129, 4);
                         break;
                     default:
                         return BadRequest("Unknown action value.");
@@ -68,7 +68,7 @@ namespace mC_Connect_table.Controllers
         }
 
         // Updated method to accept Base64-encoded image content as a parameter
-        private async Task SendPutRequestForAction(string endpoint, NotificationViewModel request, string base64ImageContent)
+        private async Task SendPutRequestForAction(string endpoint, NotificationViewModel request, string base64ImageContent, int repitition)
         {
             // Create the body for the PUT request
             var putRequestBody = new
@@ -79,7 +79,7 @@ namespace mC_Connect_table.Controllers
                 {
                     on_time = 150,    // Example values for buzzer
                     off_time = 250,
-                    repetitions = 1
+                    repetitions = repitition
                 },
                 content = base64ImageContent // Set the Base64-encoded image content dynamically
             };

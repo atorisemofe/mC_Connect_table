@@ -57,7 +57,7 @@ namespace mC_Connect_table.Controllers
                         await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction3, 3);
                         break;
                     case 129:
-                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction129, 4);
+                        await SendPutRequestForAction("https://mc-connect-manager.smcs.io/api/v1/update-image", request, base64ImageAction129, 3);
                         break;
                     default:
                         return BadRequest("Unknown action value.");

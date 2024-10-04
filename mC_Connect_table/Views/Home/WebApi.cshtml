@@ -21,6 +21,15 @@
                 <a href="#DeleteTable" class="list-group-item list-group-item-action">mC-Connect™ Table deletion</a>
                 <a href="#DeleteWebhook" class="list-group-item list-group-item-action">Webhook deletion</a>
             </div>
+            <div id="apiKeySection" class="card mb-4">
+                 <div class="card-header" style="background-color: #0056b3; color: #FFF;">
+                    Enter Star-Api-Key
+                </div>
+                <div class="card-body">
+                    <label for="apiKeyInput" class="form-label">Star-Api-Key:</label>
+                    <input type="text" id="apiKeyInput" class="form-control" placeholder="Enter your Star-Api-Key">
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
             <h2>SMCS mC-Connect Manager Web API</h2>
@@ -28,6 +37,8 @@
             <p>This section defines API that manages and controls mC-Connect Tool and mC-Connect™ Table. In addition, API that checks the settings and usage state of Webhooks is also defined.</p>
             <p>There are two types of authentication methods; one is by OAuth2.0 approval code flow using PKCE and the other is by assigning the API key to each API header. The API key is issued from the management page (<a href="https://mc-connect-manager.smcs.site">https://mc-connect-manager.smcs.site</a>).</p>
 
+            
+            
             <div id="GetPOSApps" class="card mb-4">
                 <div class="card-header bg-primary text-white">
                     Acquiring a mC-Connect Tool list and the mC-Connect™ Table list connected to each mC-connect Tool
@@ -380,12 +391,19 @@
         }
 
         function tryApiCall(endpoint, method, body, responseElement) {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+        
+            if (!apiKey) {
+                alert('Please enter your Star-Api-Key.');
+                return;
+            }
             const url = `/proxy${endpoint}`;
 
             fetch(url, {
                 method: method,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Star-Api-Key': apiKey
                 },
                 body: method !== 'GET' ? JSON.stringify(body) : null
             })

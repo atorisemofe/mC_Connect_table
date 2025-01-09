@@ -390,7 +390,9 @@
             // Get the selected image and extract its Base64 content
             const selectedImage = document.getElementById("RegisterImageGrid").querySelector('.image-grid img.selected');
 
-            const action = document.getElementById("registerImageActionInput").value.trim();
+            // Get the action value and convert it to a number
+            const actionValue = document.getElementById("registerImageActionInput").value.trim();
+            const action = Number(actionValue);  // Convert to number
 
             if (!deviceIdInput.length === 0) {
                 alert('Please enter a device_id.');

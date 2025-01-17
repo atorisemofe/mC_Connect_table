@@ -73,17 +73,17 @@
         if (status === "Preparing") {
             header.classList.add("preparing");
             sendOrderStatus("preparing",mctID)
-            // Set a 60-second delay before calling sendInstructions()
+            // Set a 30-second delay before calling sendInstructions()
             setTimeout(function() {
                 sendInstructions(mctID);
-            }, 60000); // 60000 milliseconds = 60 seconds
+            }, 30000); // 30000 milliseconds = 30 seconds
         } else if (status === "Ready") {
             header.classList.add("ready");
             sendOrderStatus("ready",mctID)
-            // Set a 60-second delay before calling sendInstructions()
+            // Set a 30-second delay before calling sendInstructions()
             setTimeout(function() {
                 sendInstructions(mctID);
-            }, 60000); // 60000 milliseconds = 60 seconds
+            }, 30000); // 30000 milliseconds = 30 seconds
         } else if (status === "Delivered") {
             header.classList.add("delivered");
         } else if (status === "New") {

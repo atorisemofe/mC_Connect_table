@@ -62,8 +62,8 @@ namespace mC_Connect_table.Controllers
 
                             await SendQRImage2Click("https://mc-connect-manager.smcs.io/api/v1/update-image", request, menuUrl1, 2);
                             
-                            // Wait for 60 seconds (60000 milliseconds)
-                            await Task.Delay(60000);
+                            // Wait for 30 seconds (30000 milliseconds)
+                            await Task.Delay(30000);
 
                             await sendInstuctions("https://mc-connect-manager.smcs.io/api/v1/update-image", request, instructionsBase64, 1);
                            

@@ -105,7 +105,7 @@
     }
 
     function notifyOrderReady(mctId) {
-        connection.invoke("ReceiveNotification", {
+        connection.invoke("SendNotification", {
             id: mctId,
             action: "order_ready"
         }).catch(err => console.error("Error sending notification:", err));

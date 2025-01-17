@@ -5,7 +5,7 @@
     @* var antiForgeryToken = @Html.AntiForgeryToken(); *@
 
 }
-<meta http-equiv="refresh" content="60">
+<meta http-equiv="refresh" content="30">
 <div class="container">
     <h2>Kitchen Orders</h2>
 
@@ -86,15 +86,15 @@
             // Set a 30-second delay before calling sendInstructions()
             setTimeout(function() {
                 sendInstructions(mctID);
-            }, 30000); // 30000 milliseconds = 30 seconds
+            }, 15000); // 15000 milliseconds = 15 seconds
         } else if (status === "Ready") {
             header.classList.add("ready");
             notifyOrderReady(mctID);
             sendOrderStatus("ready",mctID);
             // Set a 30-second delay before calling sendInstructions()
-            setTimeout(function() {
+            @* setTimeout(function() {
                 sendInstructions(mctID);
-            }, 30000); // 30000 milliseconds = 30 seconds
+            }, 30000); // 30000 milliseconds = 30 seconds *@
         } else if (status === "Delivered") {
             header.classList.add("delivered");
         } else if (status === "New") {

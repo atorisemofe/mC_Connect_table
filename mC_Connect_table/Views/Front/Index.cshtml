@@ -258,7 +258,7 @@
                 } else {
                     console.error("Failed to retrieve original status for reverting.");
                 }
-            }, 60000); // 1 minute = 60000 milliseconds
+            }, 30000); // 30 seconds = 30000 milliseconds
         } else {
             console.error(`Table with deviceID ${notification.id} not found.`);
         }

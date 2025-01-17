@@ -239,6 +239,9 @@
                 // Change the status text to "CHECK REQUESTED" and make it flash
                 statusElement.textContent = "CHECK REQUESTED";
                 statusElement.classList.add('help-requested-flash');
+            }else if (notification.action == "order_ready") {  // Add a condition for "ORDER READY"
+                statusElement.textContent = "ORDER READY";
+                statusElement.classList.add('help-requested-flash');
             }
 
             // Set a timer to revert to the original state after 1 minute

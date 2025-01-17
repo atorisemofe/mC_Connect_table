@@ -65,7 +65,7 @@ namespace mC_Connect_table.Controllers
                             // Wait for 30 seconds (30000 milliseconds)
                             await Task.Delay(30000);
 
-                            await sendInstuctions("https://mc-connect-manager.smcs.io/api/v1/update-image", request, instructionsBase64, 1);
+                            await sendInstuctions("https://mc-connect-manager.smcs.io/api/v1/update-image", request, instructionsBase64, 0);
                            
                         }
                         else
@@ -98,12 +98,12 @@ namespace mC_Connect_table.Controllers
             {
                 device_ids = new[] { request.id }, // The id from NotificationViewModel as device_id
                 led = 2, // Example LED value
-                // buzzer = new
-                // {
-                //     on_time = 150,    // Example values for buzzer
-                //     off_time = 250,
-                //     repetitions = repitition
-                // },
+                buzzer = new
+                {
+                    on_time = 150,    // Example values for buzzer
+                    off_time = 250,
+                    repetitions = repitition
+                },
                 content = base64ImageContent // Set the Base64-encoded image content dynamically
             };
 

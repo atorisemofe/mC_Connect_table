@@ -1,0 +1,59 @@
+@model IEnumerable<mC_Connect_table.Models.OrderViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TableNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntreeItems)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DrinkItems)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DessertItems)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TableNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntreeItems)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DrinkItems)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DessertItems)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderNumber">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderNumber">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderNumber">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

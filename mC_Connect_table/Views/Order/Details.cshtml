@@ -1,0 +1,48 @@
+@model mC_Connect_table.Models.OrderViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>OrderViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TableNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TableNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EntreeItems)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EntreeItems)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DrinkItems)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DrinkItems)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DessertItems)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DessertItems)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.OrderNumber">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

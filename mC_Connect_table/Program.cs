@@ -1,7 +1,14 @@
 using mC_Connect_table.Hubs;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using mC_Connect_table.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<RestaurantTablesContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("RestaurantTablesContext") ?? throw new InvalidOperationException("Connection string 'RestaurantTablesContext' not found.")));
+builder.Services.AddDbContext<OrderViewContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("OrderViewContext") ?? throw new InvalidOperationException("Connection string 'OrderViewContext' not found.")));
+    
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Logging.ClearProviders();
@@ -36,23 +43,41 @@ app.UseAuthorization();
 
 // Use your middleware after routing but before endpoints
 app.UseMiddleware<ApiProxyMiddleware>();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=WebApi}/{id?}");
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=WebApi}");
+// app.UseEndpoints(endpoints =>
+// {
+//     endpoints.MapControllerRoute(
+//         name: "default",
+//         pattern: "{controller=Home}/{action=WebApi}");
 
-    endpoints.MapControllerRoute(
-        name: "webhook",
-        pattern: "api/webhook",
-        defaults: new { controller = "Webhook", action = "HandleWebhook" });
+//     endpoints.MapControllerRoute(
+//         name: "webhook",
+//         pattern: "api/webhook",
+//         defaults: new { controller = "Webhook", action = "HandleWebhook" });
 
-    endpoints.MapControllerRoute(
-        name: "notifications",
-        pattern: "notifications/{action=Index}",
-        defaults: new { controller = "Notifications" });
-});
+//     endpoints.MapControllerRoute(
+//         name: "notifications",
+//         pattern: "notifications/{action=Index}",
+//         defaults: new { controller = "Notifications" });
+
+//     endpoints.MapControllerRoute(
+//         name: "front",
+//         pattern: "front/{action=Index}",
+//         defaults: new { controller = "Front" });
+
+//     endpoints.MapControllerRoute(
+//         name: "menu",
+//         pattern: "menu/{action=Index}",
+//         defaults: new { controller = "Menu" });
+
+//     endpoints.MapControllerRoute(
+//         name: "back",
+//         pattern: "back/{action=Index}",
+//         defaults: new { controller = "Back" });
+// });
 
 app.MapHub<NotificationHub>("/notificationHub"); // Map the SignalR hub
 

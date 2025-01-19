@@ -17,7 +17,7 @@
                     <div class="order-number">#@order.OrderNumber</div>
                     <div class="order-info">
                         <span>Table No. @order.TableNumber</span>
-                        <span>@DateTime.Now.ToString("hh:mm tt")</span> <!-- Current time for simplicity -->
+                        @* <span>@DateTime.Now.ToString("hh:mm tt")</span> <!-- Current time for simplicity --> *@
                     </div>
                 </div>
 
@@ -82,11 +82,11 @@
         // Add the corresponding class based on selected value
         if (status === "Preparing") {
             header.classList.add("preparing");
-            sendOrderStatus("preparing",mctID)
-            // Set a 30-second delay before calling sendInstructions()
+            sendOrderStatus("preparing",mctID);
+            @* // Set a 15-second delay before calling sendInstructions()
             setTimeout(function() {
                 sendInstructions(mctID);
-            }, 15000); // 15000 milliseconds = 15 seconds
+            }, 15000); // 15000 milliseconds = 15 seconds *@
         } else if (status === "Ready") {
             header.classList.add("ready");
             notifyOrderReady(mctID);

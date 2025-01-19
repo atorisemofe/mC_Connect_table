@@ -64,9 +64,11 @@
 
     // Define a function to handle incoming notifications
     connection.on("ReceiveNotification", (notification) => {
+        //console.log("Notification received:", notification); // For debugging
         // Check if the notification is for a new order
-        if (notification.Status === "New") {
+        if (notification.status === "New") {
             // Reload the page when a new order is placed
+            console.log("New Order Recieved");
             location.reload(); // This will refresh the page
         }
     });

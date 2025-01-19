@@ -9,6 +9,8 @@ using mC_Connect_table.Data;
 using mC_Connect_table.Models;
 using System.Text.Json;
 using System.Text;
+using mC_Connect_table.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace mC_Connect_table.Controllers
 {
@@ -16,12 +18,14 @@ namespace mC_Connect_table.Controllers
     {
         private readonly OrderViewContext _context;
         private readonly HttpClient _httpClient;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
 
-        public OrderController(OrderViewContext context, HttpClient httpClient)
+        public OrderController(OrderViewContext context, HttpClient httpClient, IHubContext<NotificationHub> hubContext)
         {
             _httpClient = httpClient;
             _context = context;
+            _hubContext = hubContext;
         }
 
         // GET: Order
@@ -74,6 +78,7 @@ namespace mC_Connect_table.Controllers
                 // };
                 _context.Add(order);
                 await _context.SaveChangesAsync();
+                await _hubContext.Clients.All.SendAsync("ReceiveNotification", order);
                 return Json(new { success = true, message = "Order placed successfully." });
             }
             return Json(new { success = false, message = "Invalid order data." });

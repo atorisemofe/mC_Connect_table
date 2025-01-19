@@ -5,7 +5,6 @@
     @* var antiForgeryToken = @Html.AntiForgeryToken(); *@
 
 }
-<meta http-equiv="refresh" content="30">
 <div class="container">
     <h2>Kitchen Orders</h2>
 
@@ -62,6 +61,15 @@
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/notificationHub")
         .build();
+
+    // Define a function to handle incoming notifications
+    connection.on("ReceiveNotification", (notification) => {
+        // Check if the notification is for a new order
+        if (notification.Status === "New") {
+            // Reload the page when a new order is placed
+            location.reload(); // This will refresh the page
+        }
+    }
     
     // Start the SignalR connection
     connection.start().catch(err => console.error("SignalR connection error:", err));

@@ -242,7 +242,7 @@
             }else if (notification.action == "order_ready") {  // Add a condition for "ORDER READY"
                 statusElement.textContent = "ORDER READY";
                 statusElement.classList.add('help-requested-flash');
-            }
+            }else if (notification.status == 'New'){ return; };
 
             // Set a timer to revert to the original state after 1 minute
             setTimeout(() => {

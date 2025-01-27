@@ -258,7 +258,7 @@
                 statusElement.classList.add('help-requested-flash');
             }else if (notification.status == 'New'){ return; };
 
-            @* // Set a timer to revert to the original state after 1 minute
+            // Set a timer to revert to the original state after 1 minute
             setTimeout(() => {
                 // Retrieve the original status from the data attribute
                 const storedOriginalStatus = matchingTableCard.getAttribute('data-original-status');
@@ -268,11 +268,10 @@
                     console.log(`Reverting status to: ${storedOriginalStatus}`);
                     statusElement.textContent = storedOriginalStatus;
                     statusElement.classList.remove('help-requested-flash');
-                    sendInstructions(notification.id)
                 } else {
                     console.error("Failed to retrieve original status for reverting.");
                 }
-            }, 30000); // 30 seconds = 30000 milliseconds *@
+            }, 30000); // 30 seconds = 30000 milliseconds
         } else {
             console.error(`Table with deviceID ${notification.id} not found.`);
         }

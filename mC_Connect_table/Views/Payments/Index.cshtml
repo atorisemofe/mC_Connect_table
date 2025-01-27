@@ -9,28 +9,39 @@
             <div class="col-12">
                 <h2>Order Summary</h2>  
                     
-                <h5>Drinks</h5>
-                @foreach (var order in Model)
+                @if (Model.Any(order => order.DrinkItems.Any()))
                 {
-                    @foreach (var item in order.DrinkItems)
+                    <h5>Drinks</h5>
+                    @foreach (var order in Model)
                     {
-                        <p>@item</p>
+                        @foreach (var item in order.DrinkItems)
+                        {
+                            <p>@item</p>
+                        }
                     }
                 }
-                <h5>Entree</h5>
-                @foreach (var order in Model)
+
+                @if (Model.Any(order => order.EntreeItems.Any()))
                 {
-                    @foreach (var item in order.EntreeItems)
+                    <h5>Entree</h5>
+                    @foreach (var order in Model)
                     {
-                        <p>@item</p>
+                        @foreach (var item in order.EntreeItems)
+                        {
+                            <p>@item</p>
+                        }
                     }
                 }
-                <h5>Dessert</h5>
-                @foreach (var order in Model)
+
+                @if (Model.Any(order => order.DessertItems.Any()))
                 {
-                    @foreach (var item in order.DessertItems)
+                    <h5>Dessert</h5>
+                    @foreach (var order in Model)
                     {
-                        <p>@item</p>
+                        @foreach (var item in order.DessertItems)
+                        {
+                            <p>@item</p>
+                        }
                     }
                 }
                 

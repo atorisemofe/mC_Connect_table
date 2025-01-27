@@ -18,6 +18,12 @@ namespace mC_Connect_table.Models
         public List<string>? DessertItems { get; set; }  // List of Dessert Items
 
         public string? Notes { get; set; } //Order Notes like allergies.
+        
+        // New fields for session tracking
+        public string SessionId { get; set; }  // Unique session ID or identifier for the seated customer
+        public bool PaymentStatus { get; set; } = false; // Optional: track customer name
+        public decimal TotalPrice { get; set; } // Add this field for the total price
+
 
     }
 

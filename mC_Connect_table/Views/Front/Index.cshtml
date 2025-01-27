@@ -104,11 +104,18 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    function occupyTable(tableId,mctID) {
+    function occupyTable(tableId, mctID) {
         var tableStatus = document.getElementById("status-table-" + tableId);
         var button = event.target;
 
         if (tableStatus.classList.contains('available')) {
+            // Prompt for customer name when seating the table
+            var customerName = prompt("Enter customer name:");
+            if (customerName === null || customerName.trim() === "") {
+                alert("Customer name is required to seat the table.");
+                return;  // Do not proceed if the name is not provided
+            }
+
             // Table is currently available, so seat the table
             tableStatus.textContent = 'Occupied';
             tableStatus.classList.remove('available');
@@ -119,7 +126,7 @@
             button.textContent = 'Clear Table';
 
             // Send PUT request to update table status to occupied (IsActive = true)
-            sendPutRequest(tableId, true);
+            sendPutRequest(tableId, true, customerName);
             sendInstructions(mctID);
 
         } else {
@@ -133,14 +140,20 @@
             button.textContent = 'Seat Table';
 
             // Send PUT request to update table status to available (IsActive = false)
-            sendPutRequest(tableId, false);
+            sendPutRequest(tableId, false, null);  // No customer name needed for clearing
             sendInstructions(mctID);
         }
     }
 
-    function sendPutRequest(tableId, isActive) {
+    function sendPutRequest(tableId, isActive, customerName) {
+        // Build the request URL with the customer name (if seating the table)
+        let url = `/RestaurantTables/SetTableStatus/${tableId}?isActive=${isActive}`;
+        if (isActive && customerName) {
+            url += `&customerName=${encodeURIComponent(customerName)}`;
+        }
+
         // Use fetch API to send a PUT request to update the table's IsActive status
-        fetch(`/RestaurantTables/SetTableStatus/${tableId}?isActive=${isActive}`, {
+        fetch(url, {
             method: 'PUT',
         })
         .then(response => {
@@ -151,6 +164,7 @@
             }
         });
     }
+
 
 
     function sendInstructions(mctID) {
@@ -244,7 +258,7 @@
                 statusElement.classList.add('help-requested-flash');
             }else if (notification.status == 'New'){ return; };
 
-            // Set a timer to revert to the original state after 1 minute
+            @* // Set a timer to revert to the original state after 1 minute
             setTimeout(() => {
                 // Retrieve the original status from the data attribute
                 const storedOriginalStatus = matchingTableCard.getAttribute('data-original-status');
@@ -258,7 +272,7 @@
                 } else {
                     console.error("Failed to retrieve original status for reverting.");
                 }
-            }, 30000); // 30 seconds = 30000 milliseconds
+            }, 30000); // 30 seconds = 30000 milliseconds *@
         } else {
             console.error(`Table with deviceID ${notification.id} not found.`);
         }

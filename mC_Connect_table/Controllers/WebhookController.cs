@@ -45,6 +45,10 @@ namespace mC_Connect_table.Controllers
                     case 1:
                         // Example: Send some notification
                         await _hubContext.Clients.All.SendAsync("ReceiveNotification", request);
+                        // Wait for 15 seconds (30000 milliseconds)
+                        await Task.Delay(15000);
+
+                        await sendInstuctions("https://mc-connect-manager.smcs.io/api/v1/update-image", request, instructionsBase64, 0);
                         break;
                         
                     case 2:
@@ -57,10 +61,9 @@ namespace mC_Connect_table.Controllers
                             // Dynamically generate the base URL
                             var baseUrl = $"{Request.Scheme}://{Request.Host}";
                             // Create the URL using the table number
-                            string menuUrl = $"https://localhost:7151/Menu/Index?table={matchingTable.TableNumber}&mctid={matchingTable.MctId}";
-                            string menuUrl1 = $"{baseUrl}/Menu/Index?table={matchingTable.TableNumber}&mctid={matchingTable.MctId}";
+                            string menuUrl1 = $"{baseUrl}/Menu/Index?table={matchingTable.TableNumber}&mctid={matchingTable.MctId}&sessionid={matchingTable.CurrentSessionId}";
 
-                            await SendQRImage2Click("https://mc-connect-manager.smcs.io/api/v1/update-image", request, menuUrl1, 2);
+                            await SendQRImage2Click("https://mc-connect-manager.smcs.io/api/v1/update-image", "Scan QR Code to Order", request, menuUrl1, 2);
                             
                             // Wait for 30 seconds (30000 milliseconds)
                             await Task.Delay(30000);
@@ -76,6 +79,29 @@ namespace mC_Connect_table.Controllers
 
                     case 3:
                         await _hubContext.Clients.All.SendAsync("ReceiveNotification", request);
+                        // Find the table based on request.id and MctId
+                        var matchingTable3 = await _context.RestaurantTables
+                            .FirstOrDefaultAsync(t => t.MctId == request.id);
+
+                        if (matchingTable3 != null)
+                        {
+                            // Dynamically generate the base URL
+                            var baseUrl3 = $"{Request.Scheme}://{Request.Host}";
+                            // Create the URL using the table number
+                            string menuUrl3 = $"{baseUrl3}/Payments/Index?table={matchingTable3.TableNumber}&mctid={matchingTable3.MctId}&sessionid={matchingTable3.CurrentSessionId}";
+
+                            await SendQRImage2Click("https://mc-connect-manager.smcs.io/api/v1/update-image", "Scan QR Code to Pay", request, menuUrl3, 3);
+                            
+                            // Wait for 30 seconds (30000 milliseconds)
+                            await Task.Delay(30000);
+
+                            await sendInstuctions("https://mc-connect-manager.smcs.io/api/v1/update-image", request, instructionsBase64, 0);
+                           
+                        }
+                        else
+                        {
+                            return NotFound($"No table found for MctId {request.id}");
+                        }
                         break;
 
                     // case 129:
@@ -130,8 +156,9 @@ namespace mC_Connect_table.Controllers
             }
         }
 
-        private async Task SendQRImage2Click(string endpoint, NotificationViewModel request, string qrURL, int repitition)
+        private async Task SendQRImage2Click(string endpoint, string text, NotificationViewModel request, string qrURL, int repitition)
         {
+
             // Create the body for the PUT request
             var putRequestBody = new
             {
@@ -150,7 +177,7 @@ namespace mC_Connect_table.Controllers
                     {
                         new 
                         {
-                            data = "Scan QR Code to Order",
+                            data = text,
                             align = 0,
                             font_family = 0,
                             data_type = 0

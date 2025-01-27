@@ -75,6 +75,8 @@ namespace mC_Connect_table.Controllers
                     order.DessertItems = order.DessertItems;
                     order.Notes = order.Notes;
                     order.MctId = order.MctId;
+                    order.TotalPrice = order.TotalPrice;
+                    order.SessionId = order.SessionId;
                 // };
                 _context.Add(order);
                 await _context.SaveChangesAsync();

@@ -2,6 +2,7 @@
     ViewBag.Title = "Menu";
     var tableNumber = Context.Request.Query["table"]; // Assuming table number is passed in the URL
     var mctID = Context.Request.Query["MctId"];
+    var currentSessionID = Context.Request.Query["sessionid"];
     @* var antiForgeryToken = @Html.AntiForgeryToken(); *@
 }
 
@@ -176,16 +177,10 @@
     } *@
 
     function checkout() {
-        @* var order1 = {
-            TableNumber: 1,  // Ensure this is a number, not a string
-            Status: "New",
-            EntreeItems: ["Vegetable Stir Fry"],
-            DrinkItems: ["Water"],
-            DessertItems: []
-        };
-
-        console.log('Request Payload:', JSON.stringify(order1)); // Log the data to the console *@
-        @* var token = document.querySelector('input[name="__RequestVerificationToken"]').value; *@
+        var totalPrice = 0;
+        cart.forEach(function(item) {
+            totalPrice += item.price;
+        });
         
         // Retrieve the notes entered by the user
         var orderNotesElement = document.getElementById('order-notes');
@@ -196,8 +191,10 @@
             EntreeItems: cart.filter(item => isEntree(item.name)).map(item => item.name),
             DrinkItems: cart.filter(item => isDrink(item.name)).map(item => item.name),
             DessertItems: cart.filter(item => isDessert(item.name)).map(item => item.name),
+            TotalPrice: totalPrice,
             Notes: orderNotes,
-            MctId: getMctID()
+            MctId: getMctID(),
+            SessionId: getCurrentSessionID()
         };
 
         fetch('/Order/Create', {
@@ -248,6 +245,11 @@
         // Extract the table number from the URL or another part of your app
         var urlParams = new URLSearchParams(window.location.search);
         return urlParams.get('mctid') || "";
+    }
+    function getCurrentSessionID() {
+        // Extract the table number from the URL or another part of your app
+        var urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('sessionid') || "";
     }
 
     function calculateTotalPrice() {

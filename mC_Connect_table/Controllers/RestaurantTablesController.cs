@@ -26,23 +26,39 @@ namespace mC_Connect_table.Controllers
 
         // PUT: /RestaurantTables/SetTableStatus/5
         [HttpPut("/RestaurantTables/SetTableStatus/{id}")]
-        public IActionResult SetTableStatus(int id, bool isActive)
+        public IActionResult SetTableStatus(int id, bool isActive, string? customerName = null)
         {
-            var table = _context.RestaurantTables.FirstOrDefault(t => t.TableNumber == id);
+            var table = _context.RestaurantTables.Find(id);
 
             if (table == null)
             {
-                return NotFound();
+                return NotFound("Table not found.");
             }
 
-            // Update the IsActive status of the table
-            table.IsActive = isActive;
+            if (isActive)
+            {
+                // Seating the customer, so set the table as occupied
+                table.IsActive = true;
+                table.CustomerName = customerName ?? throw new ArgumentNullException(nameof(customerName), "Customer name is required when setting the table as active.");
+                table.CurrentSessionId = Guid.NewGuid().ToString(); // Generate a unique session ID
 
-            // Save changes to the database
-            _context.SaveChanges();
+                _context.SaveChanges();
 
-            return Ok();
+                return Ok($"Table {id} is now occupied by {customerName}.");
+            }
+            else
+            {
+                // Clearing the table, so mark it as unoccupied
+                table.IsActive = false;
+                table.CustomerName = null;
+                table.CurrentSessionId = null; // Clear session ID
+
+                _context.SaveChanges();
+
+                return Ok($"Table {id} is now cleared.");
+            }
         }
+
 
         // GET: RestaurantTables
         public async Task<IActionResult> Index()

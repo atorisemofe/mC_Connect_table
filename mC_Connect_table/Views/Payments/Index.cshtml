@@ -1,0 +1,62 @@
+@model List<OrderViewModel>
+
+<div class="container mt-5">
+    <h1 class="text-center">Payment Page</h1>
+
+    @if (Model.Any())
+    {
+        <div class="row">
+            <div class="col-12">
+                <h2>Order Summary</h2>  
+                    
+                <h5>Drinks</h5>
+                @foreach (var order in Model)
+                {
+                    @foreach (var item in order.DrinkItems)
+                    {
+                        <p>@item</p>
+                    }
+                }
+                <h5>Entree</h5>
+                @foreach (var order in Model)
+                {
+                    @foreach (var item in order.EntreeItems)
+                    {
+                        <p>@item</p>
+                    }
+                }
+                <h5>Dessert</h5>
+                @foreach (var order in Model)
+                {
+                    @foreach (var item in order.DessertItems)
+                    {
+                        <p>@item</p>
+                    }
+                }
+                
+                <h2>
+                    @{
+                        decimal totalOrderPrice = Model.Sum(order => order.TotalPrice);
+                    }
+                    <strong>Total Price:</strong> $@totalOrderPrice
+                </h2>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <!-- Pay Button -->
+                <form asp-action="Pay" asp-controller="Payments" method="post">
+                    <input type="hidden" name="sessionid" value="@Model.FirstOrDefault().SessionId" />
+                    <button type="submit" class="btn btn-success">Pay</button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            No orders found for this session.
+        </div>
+    }
+</div>

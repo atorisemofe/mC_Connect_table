@@ -1,81 +1,92 @@
+@model List<OrderViewModel>
 @{
     ViewData["Title"] = "Payment Success and Survey";
 }
 
 <div class="container mt-5">
-    <h1 class="text-center text-success">Payment Successful!</h1>
-    <p class="text-center">Thank you for your payment. We value your feedback! Please take a moment to complete our survey.</p>
-
-    <!-- Restaurant Survey Form -->
-    <div class="survey-form mt-5">
-        <form id="surveyForm">
-            <!-- Survey Question 1 -->
-            <div class="form-group">
-                <label for="question1">1. How would you rate the overall quality of the food?</label>
-                <div class="star-rating">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <input type="radio" name="rating1" value="@i" id="rating1_@i" />
-                        <label for="rating1_@i">@i</label>
-                    }
+    <!-- Check if survey has already been submitted -->
+    @if (!Model.Any())
+    {
+        <h1 class="text-center text-success">Payment already Made!</h1>
+        <div class="text-center text-muted">
+            <p>You've already submitted the survey. Thank you for your feedback!</p>
+        </div>
+    }
+    else
+    {
+        <h1 class="text-center text-success">Payment Successful!</h1>
+        <p class="text-center">Thank you for your payment. We value your feedback! Please take a moment to complete our survey.</p>
+        <!-- Restaurant Survey Form -->
+        <div class="survey-form mt-5">
+            <form id="surveyForm">
+                <!-- Survey Question 1 -->
+                <div class="form-group">
+                    <label for="question1">1. How would you rate the overall quality of the food?</label>
+                    <div class="star-rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <input type="radio" name="rating1" value="@i" id="rating1_@i" />
+                            <label for="rating1_@i">@i</label>
+                        }
+                    </div>
+                    <textarea class="form-control mt-2" id="comment1" placeholder="Leave your comments here..."></textarea>
                 </div>
-                <textarea class="form-control mt-2" id="comment1" placeholder="Leave your comments here..."></textarea>
-            </div>
 
-            <!-- Survey Question 2 -->
-            <div class="form-group mt-3">
-                <label for="question2">2. How would you rate the customer service?</label>
-                <div class="star-rating">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <input type="radio" name="rating2" value="@i" id="rating2_@i" />
-                        <label for="rating2_@i">@i</label>
-                    }
+                <!-- Survey Question 2 -->
+                <div class="form-group mt-3">
+                    <label for="question2">2. How would you rate the customer service?</label>
+                    <div class="star-rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <input type="radio" name="rating2" value="@i" id="rating2_@i" />
+                            <label for="rating2_@i">@i</label>
+                        }
+                    </div>
+                    <textarea class="form-control mt-2" id="comment2" placeholder="Leave your comments here..."></textarea>
                 </div>
-                <textarea class="form-control mt-2" id="comment2" placeholder="Leave your comments here..."></textarea>
-            </div>
 
-            <!-- Survey Question 3 -->
-            <div class="form-group mt-3">
-                <label for="question3">3. How satisfied were you with the cleanliness of the restaurant?</label>
-                <div class="star-rating">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <input type="radio" name="rating3" value="@i" id="rating3_@i" />
-                        <label for="rating3_@i">@i</label>
-                    }
+                <!-- Survey Question 3 -->
+                <div class="form-group mt-3">
+                    <label for="question3">3. How satisfied were you with the cleanliness of the restaurant?</label>
+                    <div class="star-rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <input type="radio" name="rating3" value="@i" id="rating3_@i" />
+                            <label for="rating3_@i">@i</label>
+                        }
+                    </div>
+                    <textarea class="form-control mt-2" id="comment3" placeholder="Leave your comments here..."></textarea>
                 </div>
-                <textarea class="form-control mt-2" id="comment3" placeholder="Leave your comments here..."></textarea>
-            </div>
 
-            <!-- Survey Question 4 -->
-            <div class="form-group mt-3">
-                <label for="question4">4. Would you recommend our restaurant to others?</label>
-                <div class="star-rating">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        <input type="radio" name="rating4" value="@i" id="rating4_@i" />
-                        <label for="rating4_@i">@i</label>
-                    }
+                <!-- Survey Question 4 -->
+                <div class="form-group mt-3">
+                    <label for="question4">4. Would you recommend our restaurant to others?</label>
+                    <div class="star-rating">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <input type="radio" name="rating4" value="@i" id="rating4_@i" />
+                            <label for="rating4_@i">@i</label>
+                        }
+                    </div>
+                    <textarea class="form-control mt-2" id="comment4" placeholder="Leave your comments here..."></textarea>
                 </div>
-                <textarea class="form-control mt-2" id="comment4" placeholder="Leave your comments here..."></textarea>
-            </div>
 
-            <!-- Survey Question 5 -->
-            <div class="form-group mt-3">
-                <label for="question5">5. Any additional comments or suggestions?</label>
-                <textarea class="form-control" id="comment5" placeholder="Leave your comments here..."></textarea>
-            </div>
+                <!-- Survey Question 5 -->
+                <div class="form-group mt-3">
+                    <label for="question5">5. Any additional comments or suggestions?</label>
+                    <textarea class="form-control" id="comment5" placeholder="Leave your comments here..."></textarea>
+                </div>
 
-            <!-- Submit Button -->
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-primary" id="submitSurvey">Submit Survey</button>
-            </div>
-        </form>
-    </div>
+                <!-- Submit Button -->
+                <div class="text-center mt-4">
+                    <button type="button" class="btn btn-primary" id="submitSurvey">Submit Survey</button>
+                </div>
+            </form>
+        </div>
+    }
 </div>
 
-<!-- Survey Submitted Modal -->
+@* <!-- Survey Submitted Modal -->
 <div class="modal fade" id="surveyModal" tabindex="-1" role="dialog" aria-labelledby="surveyModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -87,31 +98,33 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 
 
 @section Scripts {
     <script>
-        // Handle the survey form submission
-        document.getElementById('submitSurvey').addEventListener('click', function() {
-            // Simulate survey submission (in real-world scenario, you would submit via AJAX or a form post)
-            
-            // Show the modal to confirm survey submission
-            $('#surveyModal').modal('show');
-            
-            // Reset the survey form immediately
-            document.getElementById('surveyForm').reset();
+        document.getElementById('submitSurvey').addEventListener('click', function () {
+            var sessionId = '@Model.FirstOrDefault()?.SessionId'; // Assuming sessionId is stored in the first order  
+            var url = '/Payments/Survey?sessionid=' + sessionId;
 
-            // Disable the form to prevent further submissions
-            document.querySelectorAll('#surveyForm input, #surveyForm textarea, #submitSurvey').forEach(function(elem) {
-                elem.disabled = true;
+            // Send AJAX request to submit the survey
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to the SurveyCompleted page after successful submission
+                    window.location.href = '/Payments/SurveyCompleted';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-
-
-            // Automatically hide the modal after 5 seconds
-            setTimeout(function() {
-                $('#surveyModal').modal('hide');
-            }, 5000); // 5000ms = 5 seconds
         });
     </script>
 }

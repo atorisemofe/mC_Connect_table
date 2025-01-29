@@ -23,7 +23,7 @@ namespace mC_Connect_table.Models
         public string SessionId { get; set; }  // Unique session ID or identifier for the seated customer
         public bool PaymentStatus { get; set; } = false; // Optional: track customer name
         public decimal TotalPrice { get; set; } // Add this field for the total price
-
+        public bool CustomerSurvey { get; set; } = false; //track customer survey after payment
 
     }
 

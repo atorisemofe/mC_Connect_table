@@ -22,17 +22,31 @@ https://star-m.jp/products/s_print/sdk/mCollection/mC-Connect-Table/SoftwareDeve
 ### Webhook and Notification Workflow
 - Help Request (1 Press):
   - When the customer presses the button once, the MCT sends a webhook to the app.
+  - The MCT displays the pre-stored image for help requested/call waiter
+
+![server](https://github.com/user-attachments/assets/afcf2c79-44d6-4aeb-b95a-b3f923fbac4a)
+
   - The webhook triggers a hub notification that is sent to the front-of-house staff, displaying "Help Requested" in red on the specific table assigned to that MCT.
   - After 15 seconds, the instruction image is resent to the MCT device.
    -API Used to Send Image: The instruction image is sent to the MCT using the https://mc-connect-manager.smcs.io/api/v1/update-image API.
 - Menu QR Code (2 Press):
-  - When the customer presses the button twice, a menu URL is generated with the following parameters: table number, MCT ID, and session ID.
+  - When the customer presses the button twice, the MCT send a webhook to the app.
+  - The MCT displays the pre-stored image for generating a Menu QR code
+
+![QR1](https://github.com/user-attachments/assets/5a0ee8b0-4443-43ec-959d-d0ff09a0a9da)
+
+  - A menu URL is generated with the following parameters: table number, MCT ID, and session ID.
   - A QR code is generated from the URL using the template parameter of the https://mc-connect-manager.smcs.io/api/v1/update-image API, which automatically embeds the URL in the image.
-  - The QR code is then sent to the MCT for the customer to scan and view the menu.
+  - The QR code image is then sent to the MCT for the customer to scan and view the menu.
   - After 30 seconds, the instruction image is resent to the MCT.
   - API Used to Send Image: The QR code image for the menu is sent to the MCT using the https://mc-connect-manager.smcs.io/api/v1/update-image API, with the template parameter set to generate the QR code.
 - Payment QR Code (3 Press):
-  - When the customer presses the button three times, a payment URL is generated with similar parameters (table number, MCT ID, and session ID).
+  - When the customer presses the button three times, the MCT sends a webhook to the app.
+  - The MCT displays the pre-stored image for generating a Payment QR code.
+  
+![output-onlinepngtools (16)](https://github.com/user-attachments/assets/c8155dee-c9cc-4441-8515-3e28ee51cd13)
+
+  - A payment URL is generated with similar parameters (table number, MCT ID, and session ID).
   - A QR code is generated from the payment URL using the template parameter of the https://mc-connect-manager.smcs.io/api/v1/update-image API, which automatically embeds the payment URL in the QR code image.
   - The QR code is then sent to the MCT for the customer to scan and complete the payment.
   - API Used to Send Image: The QR code image for the payment is sent using the https://mc-connect-manager.smcs.io/api/v1/update-image API, with the template parameter used to generate the QR code.
@@ -43,8 +57,14 @@ https://star-m.jp/products/s_print/sdk/mCollection/mC-Connect-Table/SoftwareDeve
   - Order States: Orders can be marked as New, Preparing, Ready, or Done.
     - New is the default state.
   - When the order status is updated to Preparing, an image is sent to the MCT notifying the customer that the kitchen is preparing the order.
+
+![orderPrepare-min](https://github.com/user-attachments/assets/3c4b3934-6fb7-42cc-bb7f-4b22cba3385f)
+
   - When the order is marked as Ready, an image is sent to the MCT informing the customer that their order will be out shortly. Simultaneously, a hub notification is sent to the front-of-house staff to alert them that the order is ready for delivery.
-    - API Used to Send Image: The ready order image is sent using https://mc-connect-manager.smcs.io/api/v1/update-image.
+
+![orderReady](https://github.com/user-attachments/assets/bbebd26b-80bc-4f03-91bc-5c610f41f200)
+
+  - API Used to Send Image: The ready order image is sent using https://mc-connect-manager.smcs.io/api/v1/update-image.
   - Final Order State: Once the order is delivered to the customer, it is marked as Done in the database.
 
 ### 3. Menu (QR Code Menu)

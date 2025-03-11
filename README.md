@@ -12,7 +12,10 @@ https://star-m.jp/products/s_print/sdk/mCollection/mC-Connect-Table/SoftwareDeve
 
 ## Features
 ### 1. Front of House (Table and Layout Management)
-- Table States: Each table can be in either an available or occupied state. When a customer is seated, the table is marked as occupied.
+- Table States: Each table can be in either an available or occupied state. When a customer is seated, the table is marked as occupied and the image with instructions on how to use the MCT device is sent to the specific device/table combination.
+
+![HowToUse](https://github.com/user-attachments/assets/3fc70b86-2850-4383-9a27-6cbeba8cf6a7)
+
 - MCT Device Integration: Each table is assigned an MCT ID and a table number. When a table is created, three images (for help, menu, and payment actions) are pre-stored in the MCT device using the https://mc-connect-manager.smcs.io/api/v1/registration/image/push-switch API. This allows the MCT to respond more quickly to button presses (3-4 seconds instead of 8-10 seconds). The images correspond to the following actions:
 
   - 1 Press: Requests help from the waiter.

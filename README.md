@@ -31,7 +31,7 @@ https://star-m.jp/products/s_print/sdk/mCollection/mC-Connect-Table/SoftwareDeve
 
   - The webhook triggers a hub notification that is sent to the front-of-house staff, displaying "Help Requested" in red on the specific table assigned to that MCT.
   - After 15 seconds, the instruction image is resent to the MCT device.
-   -API Used to Send Image: The instruction image is sent to the MCT using the https://mc-connect-manager.smcs.io/api/v1/update-image API.
+  -API Used to Send Image: The instruction image is sent to the MCT using the https://mc-connect-manager.smcs.io/api/v1/update-image API.
 - Menu QR Code (2 Press):
   - When the customer presses the button twice, the MCT send a webhook to the app.
   - The MCT displays the pre-stored image for generating a Menu QR code
